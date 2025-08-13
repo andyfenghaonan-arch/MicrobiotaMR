@@ -11,7 +11,7 @@ Interactive web application for exploring microbiota-gene-disease associations t
    Then open `http://localhost:8000` in your browser.
 
 2. **GitHub Pages**: Access the live application at your GitHub Pages URL.
-   https://andyfenghaonan-arch.github.io/MicrobiotaMR/
+   [https://andyfenghaonan-arch.github.io/MicrobiotaMR/](https://andyfenghaonan-arch.github.io/MicrobiotaMR/)
 
 ## Features
 

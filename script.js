@@ -36,11 +36,11 @@ class MicrobiotaMRApp {
                 return {
                     gene_id: values[0] || '',
                     microbiota: values[1] || '',
-                    se: parseFloat(values[2]) || 0,
-                    pval: parseFloat(values[3]) || 1,
-                    chr: values[4] || '',
-                    gene_name: values[5] || '',
-                    tissue: values[6] || '',
+                    se: parseFloat(values[3]) || 0,
+                    pval: parseFloat(values[2]) || 1,
+                    chr: values[6] || '',
+                    gene_name: values[4] || '',
+                    tissue: values[5] || '',
                     diseases: values[7] || 'NA',
                     id: index
                 };

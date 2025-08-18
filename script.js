@@ -168,13 +168,13 @@ class MicrobiotaMRApp {
         // Get available options based on current filtered data
         const availableGeneIds = [...new Set(this.filteredData.map(d => d.gene_id))].sort();
         const availableGeneNames = [...new Set(this.filteredData.map(d => d.gene_name))].sort();
-        const availableMicrobiota = [...new Set(this.filteredData.map(d => d.microbiota))].sort();
+        const availableMicrobiome = [...new Set(this.filteredData.map(d => d.microbiota))].sort();
         const availableTissues = [...new Set(this.filteredData.map(d => d.tissue))].sort();
 
         // Update dropdowns while preserving selected values
         this.updateDropdownOptions('gene-dropdown', availableGeneIds, currentFilters.geneDropdown);
         this.updateDropdownOptions('gene-name-dropdown', availableGeneNames, currentFilters.geneNameDropdown);
-        this.updateDropdownOptions('microbiota-dropdown', availableMicrobiota, currentFilters.microbiotaDropdown);
+        this.updateDropdownOptions('microbiota-dropdown', availableMicrobiome, currentFilters.microbiotaDropdown);
         this.updateDropdownOptions('tissue-dropdown', availableTissues, currentFilters.tissueDropdown);
     }
 
@@ -323,12 +323,12 @@ class MicrobiotaMRApp {
 
     updateStats() {
         const uniqueGenes = new Set(this.filteredData.map(d => d.gene_id)).size;
-        const uniqueMicrobiota = new Set(this.filteredData.map(d => d.microbiota)).size;
+        const uniqueMicrobiome = new Set(this.filteredData.map(d => d.microbiota)).size;
 
         document.getElementById('total-records').textContent = this.data.length.toLocaleString();
         document.getElementById('filtered-records').textContent = this.filteredData.length.toLocaleString();
         document.getElementById('unique-genes').textContent = uniqueGenes.toLocaleString();
-        document.getElementById('unique-microbiota').textContent = uniqueMicrobiota.toLocaleString();
+        document.getElementById('unique-microbiota').textContent = uniqueMicrobiome.toLocaleString();
     }
 
     generateVisualization() {

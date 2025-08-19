@@ -66,6 +66,9 @@ class MicrobiotaMRApp {
             document.getElementById(id).addEventListener('change', () => this.handleSearch());
         });
 
+        // NA checkbox
+        document.getElementById('include-na').addEventListener('change', () => this.handleSearch());
+
         // Buttons
         document.getElementById('apply-filters').addEventListener('click', () => this.applyFilters());
         document.getElementById('reset-filters').addEventListener('click', () => this.resetFilters());
@@ -92,7 +95,7 @@ class MicrobiotaMRApp {
         const geneNames = [...new Set(this.data.map(d => d.gene_name))].sort();
         const microbiotas = [...new Set(this.data.map(d => d.microbiota))].sort();
         const tissues = [...new Set(this.data.map(d => d.tissue))].sort();
-        const diseases = [...new Set(this.data.map(d => d.diseases))].sort();
+        const diseases = [...new Set(this.data.map(d => d.diseases).filter(d => d !== 'NA'))].sort();
 
         this.populateDropdown('gene-dropdown', geneIds);
         this.populateDropdown('gene-name-dropdown', geneNames);
@@ -132,7 +135,8 @@ class MicrobiotaMRApp {
             geneNameDropdown: document.getElementById('gene-name-dropdown').value,
             microbiotaDropdown: document.getElementById('microbiota-dropdown').value,
             tissueDropdown: document.getElementById('tissue-dropdown').value,
-            diseaseFilter: document.getElementById('disease-filter').value
+            diseaseFilter: document.getElementById('disease-filter').value,
+            includeNA: document.getElementById('include-na').checked
         };
     }
 
@@ -149,7 +153,17 @@ class MicrobiotaMRApp {
             const geneNameDropdownMatch = !filters.geneNameDropdown || row.gene_name === filters.geneNameDropdown;
             const microbiotaDropdownMatch = !filters.microbiotaDropdown || row.microbiota === filters.microbiotaDropdown;
             const tissueDropdownMatch = !filters.tissueDropdown || row.tissue === filters.tissueDropdown;
-            const diseaseMatch = !filters.diseaseFilter || row.diseases === filters.diseaseFilter;
+            
+            // Disease filter logic
+            let diseaseMatch = true;
+            if (filters.diseaseFilter) {
+                diseaseMatch = row.diseases === filters.diseaseFilter;
+            } else {
+                // If no specific disease selected, check NA inclusion
+                if (!filters.includeNA && row.diseases === 'NA') {
+                    diseaseMatch = false;
+                }
+            }
 
             return geneIdMatch && geneNameMatch && microbiotaMatch && tissueMatch &&
                    geneDropdownMatch && geneNameDropdownMatch && microbiotaDropdownMatch &&
@@ -170,12 +184,14 @@ class MicrobiotaMRApp {
         const availableGeneNames = [...new Set(this.filteredData.map(d => d.gene_name))].sort();
         const availableMicrobiome = [...new Set(this.filteredData.map(d => d.microbiota))].sort();
         const availableTissues = [...new Set(this.filteredData.map(d => d.tissue))].sort();
+        const availableDiseases = [...new Set(this.filteredData.map(d => d.diseases).filter(d => d !== 'NA'))].sort();
 
         // Update dropdowns while preserving selected values
         this.updateDropdownOptions('gene-dropdown', availableGeneIds, currentFilters.geneDropdown);
         this.updateDropdownOptions('gene-name-dropdown', availableGeneNames, currentFilters.geneNameDropdown);
         this.updateDropdownOptions('microbiota-dropdown', availableMicrobiome, currentFilters.microbiotaDropdown);
         this.updateDropdownOptions('tissue-dropdown', availableTissues, currentFilters.tissueDropdown);
+        this.updateDropdownOptions('disease-filter', availableDiseases, currentFilters.diseaseFilter);
     }
 
     updateDropdownOptions(elementId, options, selectedValue) {
@@ -212,6 +228,9 @@ class MicrobiotaMRApp {
         ['gene-dropdown', 'gene-name-dropdown', 'microbiota-dropdown', 'tissue-dropdown', 'disease-filter'].forEach(id => {
             document.getElementById(id).value = '';
         });
+
+        // Reset NA checkbox to checked
+        document.getElementById('include-na').checked = true;
 
         // Reset filtered data
         this.filteredData = [...this.data];

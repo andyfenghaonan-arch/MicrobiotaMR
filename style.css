@@ -495,3 +495,29 @@ footer {
 .table-container::-webkit-scrollbar-thumb:hover {
     background: var(--primary-color);
 }
+
+/* Disease Filter Container */
+.disease-filter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary-color);
+}
+
+.checkbox-group label {
+    font-size: 0.9rem;
+    color: var(--dark-color);
+    cursor: pointer;
+    margin: 0;
+}

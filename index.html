@@ -12,11 +12,10 @@
     <div class="container">
         <header>
             <h1>🧬 MicrobiotaMR</h1>
-            <p class="subtitle">Interactive Gene-Microbiome Disease Association Explorer</p>
+            <p class="subtitle">Interactive Database for Intestinal Gene–Microbiome Regulation and Disease Contribution</p>
             <div class="header-info">
-                <span class="badge">Mendelian Randomization</span>
-                <span class="badge">Microbiota Analysis</span>
-                <span class="badge">Gene Association</span>
+                <span class="badge">gene-to-microbiome regulation</span>
+                <span class="badge">disease genetics</span>
             </div>
         </header>
 
@@ -65,9 +64,15 @@
                 
                 <div class="search-group">
                     <label for="disease-filter">Disease Filter:</label>
-                    <select id="disease-filter">
-                        <option value="">All Diseases...</option>
-                    </select>
+                    <div class="disease-filter-container">
+                        <select id="disease-filter">
+                            <option value="">All Diseases...</option>
+                        </select>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="include-na" checked>
+                            <label for="include-na">Include NA</label>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="search-group button-group">
